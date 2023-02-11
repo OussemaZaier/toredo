@@ -1,6 +1,30 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
+  "helloMsg": "It's always better when it's natural.",
+  "@helloMsg": {
+    "description": "The first message to show"
+  },
+  "started": "get started for free",
+  "@started": {
+    "description": "The first message to show"
+  },
+  "yourEmail": "your email address",
+  "@yourEmail": {
+    "description": "The first message to show"
+  },
+  "yourPwd": "your password",
+  "@yourPwd": {
+    "description": "The first message to show"
+  },
+  "advanced": "Continue",
+  "@advanced": {
+    "description": "The first message to show"
+  },
+  "or": "or",
+  "@or": {
+    "description": "The first message to show"
+  },
+  "signUp": "sign up with",
+  "@signUp": {
+    "description": "The first message to show"
   }
 }

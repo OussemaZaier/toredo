@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:toredo/loginPage.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -64,8 +65,8 @@ class HomePage extends StatelessWidget {
                 fontWeight: FontWeight.w100,
               ),
             ),
-            const Text(
-              'It\'s always better when it\'s natural.',
+            Text(
+              AppLocalizations.of(context)!.helloMsg,
               style: TextStyle(
                 fontFamily: 'Montserrat',
                 fontSize: 15,
@@ -94,9 +95,9 @@ class HomePage extends StatelessWidget {
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Text(
-                        'get started for free',
+                        AppLocalizations.of(context)!.started,
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontSize: 20,

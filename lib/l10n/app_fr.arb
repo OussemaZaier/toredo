@@ -1,3 +1,9 @@
 {
-    "helloWorld": "¡Hola Mundo!"
+    "helloMsg": "C'est toujours mieux quand c'est naturel.",
+    "started": "commencez gratuitement",
+    "yourEmail": "votre adresse mail",
+    "yourPwd": "votre mot de passe",
+    "advanced": "Continuer",
+    "or": "ou bien",
+    "signUp": "s'inscrire avec"
 }

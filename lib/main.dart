@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale('ar', ''),
       home: HomePage(),
       debugShowCheckedModeBanner: false,
     );

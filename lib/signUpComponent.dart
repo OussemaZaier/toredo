@@ -34,7 +34,7 @@ class SignUpComponent extends StatelessWidget {
                 height: 25,
               ),
               Text(
-                'Sign up with $name',
+                '${AppLocalizations.of(context)!.signUp} $name',
                 style: const TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 15,

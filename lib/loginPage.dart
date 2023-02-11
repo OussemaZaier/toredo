@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:toredo/signUpComponent.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -54,8 +55,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                const Text(
-                  'It\'s always better when it\'s natural.',
+                Text(
+                  AppLocalizations.of(context)!.helloMsg,
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 15,
@@ -73,8 +74,8 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'your email address',
+                  Text(
+                    AppLocalizations.of(context)!.yourEmail,
                     style: TextStyle(
                       fontFamily: 'Falling',
                       fontSize: 15,
@@ -130,8 +131,8 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    'choose a password',
+                  Text(
+                    AppLocalizations.of(context)!.yourPwd,
                     style: TextStyle(
                       fontFamily: 'Falling',
                       fontSize: 15,
@@ -212,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Continue',
+                      AppLocalizations.of(context)!.advanced,
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 20,
@@ -236,8 +237,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            const Text(
-              'or',
+            Text(
+              AppLocalizations.of(context)!.or,
               style: TextStyle(
                   fontFamily: 'Falling',
                   fontSize: 20,
