@@ -1,11 +1,11 @@
 {
     "helloMsg": "C'est toujours mieux quand c'est naturel.",
-    "started": "commencez gratuitement",
-    "yourEmail": "votre adresse mail",
-    "yourPwd": "votre mot de passe",
+    "started": "Commencez gratuitement",
+    "yourEmail": "Votre adresse mail",
+    "yourPwd": "Votre mot de passe",
     "advanced": "Continuer",
-    "or": "ou bien",
+    "or": "Ou bien",
     "alreadyHave": "Vous n'avez pas de compte ?",
-    "signIn": "se connecter avec",
-    "signUp": "s'inscrire avec"
+    "signIn": "Se connecter avec",
+    "signUp": "S'inscrire avec"
 }
