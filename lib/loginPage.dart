@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:toredo/signUpComponent.dart';
@@ -32,6 +33,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    // timeDilation = 5.0; // 1.0 means normal animation speed.
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
