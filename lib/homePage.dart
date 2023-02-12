@@ -44,9 +44,12 @@ class HomePage extends StatelessWidget {
                         color: Colors.white,
                         shape: BoxShape.circle,
                       ),
-                      child: Image.asset(
-                        'assets/images/leaf.png',
-                        scale: 5,
+                      child: Hero(
+                        tag: 'appLogo',
+                        child: Image.asset(
+                          'assets/images/leaf.png',
+                          scale: 5,
+                        ),
                       ),
                     ),
                   ),
@@ -80,8 +83,9 @@ class HomePage extends StatelessWidget {
               onTap: (() {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginPage(),
+                  PageRouteBuilder(
+                    transitionDuration: Duration(seconds: 2),
+                    pageBuilder: (_, __, ___) => LoginPage(),
                   ),
                 );
               }),

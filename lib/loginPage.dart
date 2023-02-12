@@ -36,10 +36,13 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image(
-                      image: AssetImage('assets/images/leaf.png'),
-                      height: MediaQuery.of(context).size.height / 7,
-                      width: MediaQuery.of(context).size.width / 7,
+                    Hero(
+                      tag: 'appLogo',
+                      child: Image(
+                        image: AssetImage('assets/images/leaf.png'),
+                        height: MediaQuery.of(context).size.height / 7,
+                        width: MediaQuery.of(context).size.width / 7,
+                      ),
                     ),
                     const SizedBox(
                       width: 15,
