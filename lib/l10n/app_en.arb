@@ -3,11 +3,11 @@
   "@helloMsg": {
     "description": "The first message to show"
   },
-  "started": "get started for free",
+  "started": "Get started for free",
   "@started": {
     "description": "The first message to show"
   },
-  "yourEmail": "your email address",
+  "yourEmail": "Your email address",
   "@yourEmail": {
     "description": "The first message to show"
   },
@@ -19,7 +19,7 @@
   "@advanced": {
     "description": "The first message to show"
   },
-  "or": "or",
+  "or": "Or",
   "@or": {
     "description": "The first message to show"
   },
@@ -27,11 +27,11 @@
   "@alreadyHave": {
     "description": "The first message to show"
   },
-  "signIn": "sign in with",
+  "signIn": "Sign in with",
   "@signIn": {
     "description": "The first message to show"
   },
-  "signUp": "sign up with",
+  "signUp": "Sign up with",
   "@signUp": {
     "description": "The first message to show"
   }

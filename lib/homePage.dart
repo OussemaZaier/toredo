@@ -46,6 +46,7 @@ class HomePage extends StatelessWidget {
                       ),
                       child: Hero(
                         tag: 'appLogo',
+                        createRectTween: _createRectTween,
                         child: Image.asset(
                           'assets/images/leaf.png',
                           scale: 5,
@@ -84,7 +85,6 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    transitionDuration: Duration(seconds: 2),
                     pageBuilder: (context, animation, secondaryAnimation) =>
                         LoginPage(
                       isItLoginPage: true,
@@ -94,7 +94,7 @@ class HomePage extends StatelessWidget {
               }),
               child: Container(
                 height: MediaQuery.of(context).size.height / 12,
-                width: MediaQuery.of(context).size.width / 1.5,
+                width: MediaQuery.of(context).size.width / 1.3,
                 decoration: BoxDecoration(
                   color: Color(0xFFA5FB81),
                   borderRadius: BorderRadius.circular(30),
@@ -125,5 +125,25 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  static RectTween _createRectTween(Rect begin, Rect end) {
+    return CustomRectTween(begin: begin, end: end);
+  }
+}
+
+class CustomRectTween extends RectTween {
+  CustomRectTween({required Rect begin, required Rect end})
+      : super(begin: begin, end: end);
+
+  @override
+  Rect lerp(double t) {
+    double height = end!.top - begin!.top;
+    double width = end!.left - begin!.left;
+
+    double animatedX = begin!.left + (t * width);
+    double animatedY = begin!.top + (t * height);
+
+    return Rect.fromLTWH(animatedX, animatedY, 1, 1);
   }
 }
