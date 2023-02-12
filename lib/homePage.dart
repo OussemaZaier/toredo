@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:toredo/loginPage.dart';
@@ -9,6 +10,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // timeDilation = 3.0; // 1.0 means normal animation speed.
     var x = Radius.circular(MediaQuery.of(context).size.height / 6);
     return SafeArea(
       child: Scaffold(
@@ -46,7 +48,8 @@ class HomePage extends StatelessWidget {
                       ),
                       child: Hero(
                         tag: 'appLogo',
-                        createRectTween: _createRectTween,
+                        /*createRectTween: (begin, end) =>
+                            CustomRectTween(begin, end),*/
                         child: Image.asset(
                           'assets/images/leaf.png',
                           scale: 5,
@@ -85,6 +88,8 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
+                    transitionDuration: Duration(milliseconds: 500),
+                    reverseTransitionDuration: Duration(milliseconds: 500),
                     pageBuilder: (context, animation, secondaryAnimation) =>
                         LoginPage(
                       isItLoginPage: true,
@@ -126,15 +131,10 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
-  static RectTween _createRectTween(Rect begin, Rect end) {
-    return CustomRectTween(begin: begin, end: end);
-  }
 }
 
 class CustomRectTween extends RectTween {
-  CustomRectTween({required Rect begin, required Rect end})
-      : super(begin: begin, end: end);
+  CustomRectTween(Rect begin, Rect end) : super(begin: begin, end: end);
 
   @override
   Rect lerp(double t) {
