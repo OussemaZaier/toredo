@@ -132,18 +132,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-class CustomRectTween extends RectTween {
-  CustomRectTween(Rect begin, Rect end) : super(begin: begin, end: end);
-
-  @override
-  Rect lerp(double t) {
-    double height = end!.top - begin!.top;
-    double width = end!.left - begin!.left;
-
-    double animatedX = begin!.left + (t * width);
-    double animatedY = begin!.top + (t * height);
-
-    return Rect.fromLTWH(animatedX, animatedY, 1, 1);
-  }
-}
