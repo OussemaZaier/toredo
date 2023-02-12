@@ -85,7 +85,10 @@ class HomePage extends StatelessWidget {
                   context,
                   PageRouteBuilder(
                     transitionDuration: Duration(seconds: 2),
-                    pageBuilder: (_, __, ___) => LoginPage(),
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        LoginPage(
+                      isItLoginPage: true,
+                    ),
                   ),
                 );
               }),

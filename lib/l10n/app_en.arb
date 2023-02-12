@@ -23,6 +23,14 @@
   "@or": {
     "description": "The first message to show"
   },
+  "alreadyHave": "You don't have an account?",
+  "@alreadyHave": {
+    "description": "The first message to show"
+  },
+  "signIn": "sign in with",
+  "@signIn": {
+    "description": "The first message to show"
+  },
   "signUp": "sign up with",
   "@signUp": {
     "description": "The first message to show"

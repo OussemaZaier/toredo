@@ -5,7 +5,8 @@ import 'package:toredo/signUpComponent.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key, required this.isItLoginPage}) : super(key: key);
+  bool isItLoginPage;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -14,6 +15,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  VoidCallback _tapFunLogin = () {
+    print('tapped login');
+  };
+  VoidCallback _tapFunSignUp = () {
+    print('tapped sign up');
+  };
   bool visible = false;
   @override
   void initState() {
@@ -201,60 +208,89 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-            Container(
-              height: MediaQuery.of(context).size.height / 12,
-              width: MediaQuery.of(context).size.width / 1.5,
-              decoration: BoxDecoration(
-                color: (emailController.text.isEmpty ||
-                        passwordController.text.isEmpty)
-                    ? Color.fromARGB(15, 0, 0, 0)
-                    : Color(0xFFA5FB81),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.advanced,
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 20,
-                        letterSpacing: -2,
-                        fontWeight: FontWeight.w100,
+            InkWell(
+              onTap: widget.isItLoginPage ? _tapFunLogin : _tapFunSignUp,
+              child: Container(
+                height: MediaQuery.of(context).size.height / 12,
+                width: MediaQuery.of(context).size.width / 1.5,
+                decoration: BoxDecoration(
+                  color: (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty)
+                      ? Color.fromARGB(15, 0, 0, 0)
+                      : Color(0xFFA5FB81),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.advanced,
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontSize: 20,
+                          letterSpacing: -2,
+                          fontWeight: FontWeight.w100,
+                          color: (emailController.text.isEmpty ||
+                                  passwordController.text.isEmpty)
+                              ? Color.fromARGB(40, 0, 0, 0)
+                              : Colors.black,
+                        ),
+                      ),
+                      Icon(
+                        Icons.chevron_right,
+                        size: 30,
                         color: (emailController.text.isEmpty ||
                                 passwordController.text.isEmpty)
                             ? Color.fromARGB(40, 0, 0, 0)
                             : Colors.black,
                       ),
-                    ),
-                    Icon(
-                      Icons.chevron_right,
-                      size: 30,
-                      color: (emailController.text.isEmpty ||
-                              passwordController.text.isEmpty)
-                          ? Color.fromARGB(40, 0, 0, 0)
-                          : Colors.black,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-            Text(
-              AppLocalizations.of(context)!.or,
-              style: TextStyle(
-                  fontFamily: 'Falling',
-                  fontSize: 20,
-                  letterSpacing: -1,
-                  color: Colors.black26),
+            InkWell(
+              onTap: (() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(isItLoginPage: false),
+                  ),
+                );
+              }),
+              child: widget.isItLoginPage
+                  ? Text(
+                      AppLocalizations.of(context)!.alreadyHave,
+                      style: TextStyle(
+                          fontFamily: 'Falling',
+                          fontSize: 15,
+                          color: Colors.black26),
+                    )
+                  : SizedBox(
+                      height: 0.0,
+                    ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 50.0,
+                left: 50.0,
+              ),
+              child: Divider(
+                thickness: 1,
+              ),
             ),
             SignUpComponent(
               image: const AssetImage('assets/images/google.png'),
-              name: 'Google',
+              name: widget.isItLoginPage
+                  ? '${AppLocalizations.of(context)!.signIn} Google'
+                  : '${AppLocalizations.of(context)!.signUp} Google',
             ),
             SignUpComponent(
               image: const AssetImage('assets/images/apple.png'),
-              name: 'Apple',
+              name: widget.isItLoginPage
+                  ? '${AppLocalizations.of(context)!.signIn} Apple'
+                  : '${AppLocalizations.of(context)!.signUp} Apple',
             ),
           ],
         ),

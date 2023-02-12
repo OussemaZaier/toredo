@@ -5,5 +5,7 @@
     "yourPwd": "votre mot de passe",
     "advanced": "Continuer",
     "or": "ou bien",
+    "alreadyHave": "Vous n'avez pas de compte ?",
+    "signIn": "se connecter avec",
     "signUp": "s'inscrire avec"
 }
