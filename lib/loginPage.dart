@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:toredo/api.dart';
 import 'package:toredo/models/customer.dart';
+import 'package:toredo/navigation.dart';
 import 'package:toredo/shop.dart';
 import 'package:toredo/signUpComponent.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ShopPage(),
+        builder: (context) => Navigation(),
       ),
     );
   }
@@ -39,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ShopPage(),
+        builder: (context) => Navigation(),
       ),
     );
   }
