@@ -14,5 +14,8 @@
     "dairy": "laitiers",
     "fish": "Poisson",
     "grains": "Céréales",
-    "shopby": "Recherche par catégorie"
+    "shopby": "Recherche par catégorie",
+    "emailError": "remplir ce schamps",
+    "pwdError": "Au plus de 6 characters"
+
 }

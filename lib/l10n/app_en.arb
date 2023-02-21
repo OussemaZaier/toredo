@@ -62,5 +62,8 @@
   "shopby": "Shop by category",
   "@shopby": {
     "description": "The first message to show"
-  }
+  },
+  "emailError": "Must not be empty",
+  "pwdError": "6 characters or more"
+
 }
