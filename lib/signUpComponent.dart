@@ -15,6 +15,7 @@ class SignUpComponent extends StatelessWidget {
       padding: const EdgeInsets.only(
         left: 13.0,
         right: 13.0,
+        top: 20.0,
       ),
       child: Container(
         height: MediaQuery.of(context).size.height / 13,

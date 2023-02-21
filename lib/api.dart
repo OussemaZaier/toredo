@@ -10,14 +10,14 @@ class APIService {
     String KEY = dotenv.env['KEY'].toString();
     String SECRET = dotenv.env['SECRET'].toString();
     String URL = dotenv.env['URL'].toString();
-
+    String fullURL = dotenv.env['customerURL'].toString();
     var authToken = base64.encode(utf8.encode(KEY + ':' + SECRET));
     try {
       print(customer.toJSON());
       var res = await Dio().post(
-        'https://192.168.43.128/wordpress/wp-json/wc/v3/customers',
+        URL + fullURL,
         data: customer.toJSON(),
-        options: new Options(
+        options: Options(
           headers: {
             HttpHeaders.authorizationHeader: 'Basic $authToken',
             HttpHeaders.contentTypeHeader: 'application/json',
@@ -33,7 +33,7 @@ class APIService {
       print('----------------');
     } on DioError catch (e) {
       print('---------error-------');
-      print(e);
+      print(e.response);
       print('----------------');
     }
   }

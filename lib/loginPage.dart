@@ -18,6 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final userController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -38,9 +39,9 @@ class _LoginPageState extends State<LoginPage> {
     //wapiService.createCustomer(customer);
     print('tapped signup');
     CustomerModel cm = new CustomerModel(
-      email: 'testfromflutter@test.tn',
-      password: 'pwd',
-      username: 'testFromFlutter',
+      email: emailController.text,
+      password: passwordController.text,
+      username: userController.text,
     );
     APIService api = APIService();
     api.createCustomer(cm);
@@ -72,265 +73,338 @@ class _LoginPageState extends State<LoginPage> {
 
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Hero(
+                        tag: 'appLogo',
+                        child: Image(
+                          image: AssetImage('assets/images/leaf.png'),
+                          height: MediaQuery.of(context).size.height / 7,
+                          width: MediaQuery.of(context).size.width / 7,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      const Text(
+                        'Toredo',
+                        style: TextStyle(
+                          fontFamily: 'Falling',
+                          fontSize: 60,
+                          letterSpacing: -4,
+                          fontWeight: FontWeight.w100,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.helloMsg,
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w100,
+                    ),
+                  ),
+                ]),
+              ),
+              Container(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  top: 20,
+                  right: 10,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Hero(
-                      tag: 'appLogo',
-                      child: Image(
-                        image: AssetImage('assets/images/leaf.png'),
-                        height: MediaQuery.of(context).size.height / 7,
-                        width: MediaQuery.of(context).size.width / 7,
+                    //username field
+                    Visibility(
+                      visible: !widget.isItLoginPage,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.yourEmail,
+                            style: TextStyle(
+                              fontFamily: 'Falling',
+                              fontSize: 15,
+                              letterSpacing: -1,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'can\'t be empty';
+                              }
+                            },
+                            controller: userController,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 75, 185, 28)),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black12),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(color: Colors.black12),
+                              ),
+                              hintText: 'username',
+                              prefixIcon: Icon(
+                                Icons.account_circle,
+                                color: Colors.black26,
+                              ),
+                              suffixIcon: userController.text.isEmpty
+                                  ? Container(
+                                      width: 0,
+                                    )
+                                  : IconButton(
+                                      onPressed: () {
+                                        userController.clear();
+                                      },
+                                      icon: const Icon(
+                                        Icons.close,
+                                        color: Colors.black26,
+                                      ),
+                                    ),
+                            ),
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ],
+                      ),
+                    ),
+                    //email
+                    Text(
+                      AppLocalizations.of(context)!.yourEmail,
+                      style: TextStyle(
+                        fontFamily: 'Falling',
+                        fontSize: 15,
+                        letterSpacing: -1,
                       ),
                     ),
                     const SizedBox(
-                      width: 15,
+                      height: 10,
                     ),
-                    const Text(
-                      'Toredo',
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'can\'t be empty';
+                        }
+                      },
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 75, 185, 28)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        hintText: 'emailEXAMPLE@email.com',
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Colors.black26,
+                        ),
+                        suffixIcon: emailController.text.isEmpty
+                            ? Container(
+                                width: 0,
+                              )
+                            : IconButton(
+                                onPressed: () {
+                                  emailController.clear();
+                                },
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.black26,
+                                ),
+                              ),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.yourPwd,
                       style: TextStyle(
                         fontFamily: 'Falling',
-                        fontSize: 60,
-                        letterSpacing: -4,
-                        fontWeight: FontWeight.w100,
+                        fontSize: 15,
+                        letterSpacing: -1,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'can\'t be null';
+                        }
+                        if (value.length < 6) {
+                          return 'at least 6 caracters';
+                        }
+                      },
+                      controller: passwordController,
+                      obscureText: !visible,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 75, 185, 28)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        hintText: '***********',
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Colors.black26,
+                        ),
+                        suffixIcon: visible
+                            ? IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    visible = false;
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.visibility,
+                                  color: Colors.black26,
+                                ))
+                            : IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    visible = true;
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.black26,
+                                )),
                       ),
                     ),
                   ],
                 ),
-                Text(
-                  AppLocalizations.of(context)!.helloMsg,
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 15,
-                    fontWeight: FontWeight.w100,
-                  ),
-                ),
-              ]),
-            ),
-            Container(
-              padding: const EdgeInsets.only(
-                left: 10,
-                top: 20,
-                right: 10,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.yourEmail,
-                    style: TextStyle(
-                      fontFamily: 'Falling',
-                      fontSize: 15,
-                      letterSpacing: -1,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'can\'t be empty';
-                      }
-                    },
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 75, 185, 28)),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black12),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                      hintText: 'emailEXAMPLE@email.com',
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Colors.black26,
-                      ),
-                      suffixIcon: emailController.text.isEmpty
-                          ? Container(
-                              width: 0,
-                            )
-                          : IconButton(
-                              onPressed: () {
-                                emailController.clear();
-                              },
-                              icon: const Icon(
-                                Icons.close,
-                                color: Colors.black26,
-                              ),
-                            ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.yourPwd,
-                    style: TextStyle(
-                      fontFamily: 'Falling',
-                      fontSize: 15,
-                      letterSpacing: -1,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'can\'t be null';
-                      }
-                      if (value.length < 6) {
-                        return 'at least 6 caracters';
-                      }
-                    },
-                    controller: passwordController,
-                    obscureText: !visible,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 75, 185, 28)),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black12),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                      hintText: '***********',
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        color: Colors.black26,
-                      ),
-                      suffixIcon: visible
-                          ? IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  visible = false;
-                                });
-                              },
-                              icon: Icon(
-                                Icons.visibility,
-                                color: Colors.black26,
-                              ))
-                          : IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  visible = true;
-                                });
-                              },
-                              icon: Icon(
-                                Icons.visibility_off,
-                                color: Colors.black26,
-                              )),
-                    ),
-                  )
-                ],
+              SizedBox(
+                height: 20.0,
               ),
-            ),
-            InkWell(
-              onTap: widget.isItLoginPage ? _tapFunLogin : _tapFunSignUp,
-              child: Container(
-                height: MediaQuery.of(context).size.height / 12,
-                width: MediaQuery.of(context).size.width / 1.5,
-                decoration: BoxDecoration(
-                  color: (emailController.text.isEmpty ||
-                          passwordController.text.isEmpty)
-                      ? Color.fromARGB(15, 0, 0, 0)
-                      : Color(0xFFA5FB81),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.advanced,
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 20,
-                          letterSpacing: -2,
-                          fontWeight: FontWeight.w100,
+              InkWell(
+                onTap: widget.isItLoginPage ? _tapFunLogin : _tapFunSignUp,
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 12,
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  decoration: BoxDecoration(
+                    color: (emailController.text.isEmpty ||
+                            passwordController.text.isEmpty)
+                        ? Color.fromARGB(15, 0, 0, 0)
+                        : Color(0xFFA5FB81),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.advanced,
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 20,
+                            letterSpacing: -2,
+                            fontWeight: FontWeight.w100,
+                            color: (emailController.text.isEmpty ||
+                                    passwordController.text.isEmpty)
+                                ? Color.fromARGB(40, 0, 0, 0)
+                                : Colors.black,
+                          ),
+                        ),
+                        Icon(
+                          Icons.chevron_right,
+                          size: 30,
                           color: (emailController.text.isEmpty ||
                                   passwordController.text.isEmpty)
                               ? Color.fromARGB(40, 0, 0, 0)
                               : Colors.black,
                         ),
-                      ),
-                      Icon(
-                        Icons.chevron_right,
-                        size: 30,
-                        color: (emailController.text.isEmpty ||
-                                passwordController.text.isEmpty)
-                            ? Color.fromARGB(40, 0, 0, 0)
-                            : Colors.black,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            InkWell(
-              onTap: (() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginPage(isItLoginPage: false),
-                  ),
-                );
-              }),
-              child: widget.isItLoginPage
-                  ? Text(
-                      AppLocalizations.of(context)!.alreadyHave,
-                      style: TextStyle(
-                          fontFamily: 'Falling',
-                          fontSize: 15,
-                          color: Colors.black26),
-                    )
-                  : SizedBox(
-                      height: 0.0,
+              SizedBox(
+                height: 10.0,
+              ),
+              InkWell(
+                onTap: (() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(isItLoginPage: false),
                     ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 50.0,
-                left: 50.0,
+                  );
+                }),
+                child: widget.isItLoginPage
+                    ? Text(
+                        AppLocalizations.of(context)!.alreadyHave,
+                        style: TextStyle(
+                            fontFamily: 'Falling',
+                            fontSize: 15,
+                            color: Colors.black26),
+                      )
+                    : SizedBox(
+                        height: 0.0,
+                      ),
               ),
-              child: Divider(
-                thickness: 1,
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 50.0,
+                  left: 50.0,
+                  top: 10.0,
+                ),
+                child: Divider(
+                  thickness: 1,
+                ),
               ),
-            ),
-            SignUpComponent(
-              image: const AssetImage('assets/images/google.png'),
-              name: widget.isItLoginPage
-                  ? '${AppLocalizations.of(context)!.signIn} Google'
-                  : '${AppLocalizations.of(context)!.signUp} Google',
-            ),
-            SignUpComponent(
-              image: const AssetImage('assets/images/apple.png'),
-              name: widget.isItLoginPage
-                  ? '${AppLocalizations.of(context)!.signIn} Apple'
-                  : '${AppLocalizations.of(context)!.signUp} Apple',
-            ),
-          ],
+              SignUpComponent(
+                image: const AssetImage('assets/images/google.png'),
+                name: widget.isItLoginPage
+                    ? '${AppLocalizations.of(context)!.signIn} Google'
+                    : '${AppLocalizations.of(context)!.signUp} Google',
+              ),
+              SignUpComponent(
+                image: const AssetImage('assets/images/apple.png'),
+                name: widget.isItLoginPage
+                    ? '${AppLocalizations.of(context)!.signIn} Apple'
+                    : '${AppLocalizations.of(context)!.signUp} Apple',
+              ),
+            ],
+          ),
         ),
       ),
     );
