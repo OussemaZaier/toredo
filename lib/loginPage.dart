@@ -37,6 +37,13 @@ class _LoginPageState extends State<LoginPage> {
   _tapFunSignUp() {
     //wapiService.createCustomer(customer);
     print('tapped signup');
+    CustomerModel cm = new CustomerModel(
+      email: 'testfromflutter@test.tn',
+      password: 'pwd',
+      username: 'testFromFlutter',
+    );
+    APIService api = APIService();
+    api.createCustomer(cm);
     Navigator.push(
       context,
       MaterialPageRoute(
