@@ -34,5 +34,33 @@
   "signUp": "Sign up with",
   "@signUp": {
     "description": "The first message to show"
+  },
+  "vegetable": "Vegetable",
+  "@vegetable": {
+    "description": "The first message to show"
+  },
+  "meat": "Meat",
+  "@meat": {
+    "description": "The first message to show"
+  },
+  "fruits": "Fruits",
+  "@fruits": {
+    "description": "The first message to show"
+  },
+  "dairy": "Dairy",
+  "@diary": {
+    "description": "The first message to show"
+  },
+  "fish": "Fish",
+  "@fish": {
+    "description": "The first message to show"
+  },
+  "grains": "Grains",
+  "@grains": {
+    "description": "The first message to show"
+  },
+  "shopby": "Shop by category",
+  "@shopby": {
+    "description": "The first message to show"
   }
 }

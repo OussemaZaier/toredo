@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:toredo/category.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _ShopPageState extends State<ShopPage> {
               height: 20,
             ),
             Text(
-              'Shop by category',
+              AppLocalizations.of(context)!.shopby,
               style: TextStyle(
                 fontFamily: 'Falling',
                 fontSize: 30,
@@ -53,22 +54,22 @@ class _ShopPageState extends State<ShopPage> {
               children: [
                 Category(
                     img: const AssetImage('assets/images/vegetable.png'),
-                    name: 'Vegetable'),
+                    name: AppLocalizations.of(context)!.vegetable),
                 Category(
                     img: const AssetImage('assets/images/meat.png'),
-                    name: 'Meat'),
+                    name: AppLocalizations.of(context)!.meat),
                 Category(
                     img: const AssetImage('assets/images/fruit.png'),
-                    name: 'Fruits'),
+                    name: AppLocalizations.of(context)!.fruits),
                 Category(
                     img: const AssetImage('assets/images/milk.png'),
-                    name: 'Diary'),
+                    name: AppLocalizations.of(context)!.dairy),
                 Category(
                     img: const AssetImage('assets/images/fish.png'),
-                    name: 'Fish'),
+                    name: AppLocalizations.of(context)!.fish),
                 Category(
                     img: const AssetImage('assets/images/wheat-sack.png'),
-                    name: 'Grains'),
+                    name: AppLocalizations.of(context)!.grains),
               ],
             )
           ],

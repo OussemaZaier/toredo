@@ -7,5 +7,12 @@
     "or": "Ou bien",
     "alreadyHave": "Vous n'avez pas de compte ?",
     "signIn": "Se connecter avec",
-    "signUp": "S'inscrire avec"
+    "signUp": "S'inscrire avec",
+    "vegetable": "Légume",
+    "meat": "Viande",
+    "fruits": "Fruits",
+    "dairy": "laitiers",
+    "fish": "Poisson",
+    "grains": "Céréales",
+    "shopby": "Recherche par catégorie"
 }
