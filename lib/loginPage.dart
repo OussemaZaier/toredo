@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:toredo/api.dart';
+import 'package:toredo/models/customer.dart';
+import 'package:toredo/shop.dart';
 import 'package:toredo/signUpComponent.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -16,12 +19,31 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  VoidCallback _tapFunLogin = () {
+
+  // static late APIService apiService;
+  // static late CustomerModel customer;
+
+  _tapFunLogin() {
     print('tapped login');
-  };
-  VoidCallback _tapFunSignUp = () {
-    print('tapped sign up');
-  };
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ShopPage(),
+      ),
+    );
+  }
+
+  _tapFunSignUp() {
+    //wapiService.createCustomer(customer);
+    print('tapped signup');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ShopPage(),
+      ),
+    );
+  }
+
   bool visible = false;
   @override
   void initState() {
@@ -29,6 +51,11 @@ class _LoginPageState extends State<LoginPage> {
     emailController.addListener(() {
       setState(() {});
     });
+    // apiService = new APIService();
+    // customer = new CustomerModel(
+    //     email: 'testfromflutter@gmail.com',
+    //     password: 'password',
+    //     username: 'username');
   }
 
   @override

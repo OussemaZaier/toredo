@@ -4,6 +4,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:toredo/loginPage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:toredo/navigation.dart';
+import 'package:toredo/shop.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -70,6 +72,7 @@ class HomePage extends StatelessWidget {
                 fontSize: 60,
                 letterSpacing: -4,
                 fontWeight: FontWeight.w100,
+                color: Color(0xFF101A30),
               ),
             ),
             Text(
@@ -88,8 +91,8 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    transitionDuration: Duration(milliseconds: 500),
-                    reverseTransitionDuration: Duration(milliseconds: 500),
+                    transitionDuration: Duration(milliseconds: 2000),
+                    reverseTransitionDuration: Duration(milliseconds: 1000),
                     pageBuilder: (context, animation, secondaryAnimation) =>
                         LoginPage(
                       isItLoginPage: true,
