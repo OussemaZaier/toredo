@@ -7,7 +7,7 @@ import 'package:toredo/models/customer.dart';
 import 'package:toredo/models/login.dart';
 
 class APIService {
-  void createCustomer(CustomerModel customer) async {
+  Future createCustomer(CustomerModel customer) async {
     String KEY = dotenv.env['KEY'].toString();
     String SECRET = dotenv.env['SECRET'].toString();
     String URL = dotenv.env['URL'].toString();
@@ -25,6 +25,7 @@ class APIService {
           },
         ),
       );
+      return res;
       print('------here1----------');
       print(authToken);
       print('----------------');
@@ -33,6 +34,7 @@ class APIService {
       print(res.data);
       print('----------------');
     } on DioError catch (e) {
+      return e;
       print('---------error-------');
       print(e.response);
       print('----------------');

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -48,14 +51,49 @@ class _LoginPageState extends State<LoginPage> {
       password: passwordController.text,
       username: userController.text,
     );
+
     APIService api = APIService();
-    api.createCustomer(cm);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Navigation(),
+    //progress indicator
+    ArtSweetAlert.show(
+      context: context,
+      artDialogArgs: ArtDialogArgs(
+        title: "working on your request",
+        customColumns: [
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: CircularProgressIndicator(),
+          ),
+        ],
       ),
     );
+    api.createCustomer(cm).then(
+      ((value) {
+        Navigator.pop(context);
+        ArtSweetAlert.show(
+          context: context,
+          artDialogArgs: ArtDialogArgs(
+            title: "done working on your request",
+          ),
+        );
+        print(value);
+      }),
+    ).onError(
+      ((error, stackTrace) {
+        ArtSweetAlert.show(
+          context: context,
+          artDialogArgs: ArtDialogArgs(
+            title: "error while working on your request",
+          ),
+        );
+      }),
+    );
+
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => Navigation(),
+    //   ),
+    // );
   }
 
   bool visible = false;
