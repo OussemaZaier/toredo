@@ -75,10 +75,12 @@ class _LoginPageState extends State<LoginPage> {
             title: "done working on your request",
           ),
         );
-        print(value);
+        print(value.statusCode);
+        print(value.data);
       }),
     ).onError(
       ((error, stackTrace) {
+        Navigator.pop(context);
         ArtSweetAlert.show(
           context: context,
           artDialogArgs: ArtDialogArgs(
