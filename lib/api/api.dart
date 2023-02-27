@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:toredo/models/customer.dart';
+import 'package:toredo/models/login.dart';
 
 class APIService {
   void createCustomer(CustomerModel customer) async {
@@ -36,5 +37,32 @@ class APIService {
       print(e.response);
       print('----------------');
     }
+  }
+
+  void loginCustomer(String email, String username, String password) async {
+    LoginModel model;
+    try {
+      var response = await Dio().post(
+        dotenv.env['tokenURL'].toString(),
+        data: {
+          'username': username,
+          'password': password,
+        },
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        model = LoginModel.fromJSON(response.data);
+      }
+      print('success');
+      print(response.data);
+    } on DioError catch (e) {
+      print('error');
+      print(e.message);
+    }
+    //return model;
   }
 }

@@ -65,5 +65,4 @@
   },
   "emailError": "Must not be empty",
   "pwdError": "6 characters or more"
-
 }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:toredo/loginPage.dart';
+import 'package:toredo/pages/loginPage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:toredo/navigation.dart';
-import 'package:toredo/shop.dart';
+import 'package:toredo/pages/navigation.dart';
+import 'package:toredo/pages/shop.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

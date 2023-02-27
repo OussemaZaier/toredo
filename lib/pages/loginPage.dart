@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:toredo/api.dart';
+import 'package:toredo/api/api.dart';
 import 'package:toredo/models/customer.dart';
-import 'package:toredo/navigation.dart';
-import 'package:toredo/shop.dart';
-import 'package:toredo/signUpComponent.dart';
+import 'package:toredo/pages/navigation.dart';
+import 'package:toredo/pages/shop.dart';
+import 'package:toredo/components/signUpComponent.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
@@ -27,6 +27,9 @@ class _LoginPageState extends State<LoginPage> {
 
   _tapFunLogin() {
     print('tapped login');
+    APIService api = APIService();
+    api.loginCustomer(
+        emailController.text, emailController.text, passwordController.text);
     Navigator.push(
       context,
       MaterialPageRoute(
