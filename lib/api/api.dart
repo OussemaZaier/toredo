@@ -12,7 +12,7 @@ class APIService {
     String SECRET = dotenv.env['SECRET'].toString();
     String URL = dotenv.env['URL'].toString();
     String fullURL = dotenv.env['customerURL'].toString();
-    var authToken = base64.encode(utf8.encode(KEY + ':' + SECRET));
+    var authToken = base64.encode(utf8.encode('$KEY:$SECRET'));
     try {
       print(customer.toJSON());
       var res = await Dio().post(
@@ -39,7 +39,7 @@ class APIService {
     }
   }
 
-  void loginCustomer(String email, String username, String password) async {
+  void loginCustomer(String username, String password) async {
     LoginModel model;
     try {
       var response = await Dio().post(
@@ -49,13 +49,11 @@ class APIService {
           'password': password,
         },
         options: new Options(
-          headers: {
-            HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
-          },
+          headers: {HttpHeaders.contentTypeHeader: 'application/json'},
         ),
       );
       if (response.statusCode == 200) {
-        model = LoginModel.fromJSON(response.data);
+        //model = LoginModel.fromJSON(response.data);
       }
       print('success');
       print(response.data);

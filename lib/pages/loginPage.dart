@@ -29,7 +29,9 @@ class _LoginPageState extends State<LoginPage> {
     print('tapped login');
     APIService api = APIService();
     api.loginCustomer(
-        emailController.text, emailController.text, passwordController.text);
+      userController.text,
+      passwordController.text,
+    );
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -128,6 +130,61 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //username field
+                    Text(
+                      AppLocalizations.of(context)!.username,
+                      style: TextStyle(
+                        fontFamily: 'Falling',
+                        fontSize: 15,
+                        letterSpacing: -1,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'can\'t be empty';
+                        }
+                      },
+                      controller: userController,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 75, 185, 28)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        hintText: AppLocalizations.of(context)!.username,
+                        prefixIcon: Icon(
+                          Icons.account_circle,
+                          color: Colors.black26,
+                        ),
+                        suffixIcon: userController.text.isEmpty
+                            ? Container(
+                                width: 0,
+                              )
+                            : IconButton(
+                                onPressed: () {
+                                  userController.clear();
+                                },
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.black26,
+                                ),
+                              ),
+                      ),
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                    ),
+                    //email
                     Visibility(
                       visible: !widget.isItLoginPage,
                       child: Column(
@@ -150,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                                 return 'can\'t be empty';
                               }
                             },
-                            controller: userController,
+                            controller: emailController,
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -165,18 +222,18 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(30),
                                 borderSide: BorderSide(color: Colors.black12),
                               ),
-                              hintText: 'username',
+                              hintText: 'emailEXAMPLE@email.com',
                               prefixIcon: Icon(
-                                Icons.account_circle,
+                                Icons.email,
                                 color: Colors.black26,
                               ),
-                              suffixIcon: userController.text.isEmpty
+                              suffixIcon: emailController.text.isEmpty
                                   ? Container(
                                       width: 0,
                                     )
                                   : IconButton(
                                       onPressed: () {
-                                        userController.clear();
+                                        emailController.clear();
                                       },
                                       icon: const Icon(
                                         Icons.close,
@@ -184,67 +241,13 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                             ),
-                            keyboardType: TextInputType.name,
+                            keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
                           ),
                         ],
                       ),
                     ),
-                    //email
-                    Text(
-                      AppLocalizations.of(context)!.yourEmail,
-                      style: TextStyle(
-                        fontFamily: 'Falling',
-                        fontSize: 15,
-                        letterSpacing: -1,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'can\'t be empty';
-                        }
-                      },
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 75, 185, 28)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Colors.black12),
-                        ),
-                        hintText: 'emailEXAMPLE@email.com',
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: Colors.black26,
-                        ),
-                        suffixIcon: emailController.text.isEmpty
-                            ? Container(
-                                width: 0,
-                              )
-                            : IconButton(
-                                onPressed: () {
-                                  emailController.clear();
-                                },
-                                icon: const Icon(
-                                  Icons.close,
-                                  color: Colors.black26,
-                                ),
-                              ),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                    ),
+
                     const SizedBox(
                       height: 10,
                     ),

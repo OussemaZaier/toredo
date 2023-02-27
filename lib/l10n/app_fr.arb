@@ -2,6 +2,8 @@
     "helloMsg": "C'est toujours mieux quand c'est naturel.",
     "started": "Commencez gratuitement",
     "yourEmail": "Votre adresse mail",
+    "yourUsername": "Votre nom d'utilisateur",
+    "username": "nom d'utilisateur",
     "yourPwd": "Votre mot de passe",
     "advanced": "Continuer",
     "or": "Ou bien",

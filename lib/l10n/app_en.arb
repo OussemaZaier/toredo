@@ -11,6 +11,14 @@
   "@yourEmail": {
     "description": "The first message to show"
   },
+  "yourUsername": "Your username",
+  "@yourUsername": {
+    "description": "The first message to show"
+  },
+  "username": "username",
+  "@username": {
+    "description": "The first message to show"
+  },
   "yourPwd": "your password",
   "@yourPwd": {
     "description": "The first message to show"
