@@ -3,14 +3,9 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class detailsPage extends StatefulWidget {
+class detailsPage extends StatelessWidget {
   detailsPage({Key? key}) : super(key: key);
 
-  @override
-  State<detailsPage> createState() => _detailsPageState();
-}
-
-class _detailsPageState extends State<detailsPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,11 +23,38 @@ class _detailsPageState extends State<detailsPage> {
               "Fresh Meat",
               style: TextStyle(fontFamily: "Falling", fontSize: 35),
             ),
+            SizedBox(
+              height: 10,
+            ),
             Container(
-              color: Colors.white24,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color.fromARGB(255, 243, 243, 243)),
+              padding: EdgeInsets.all(10),
               child: Row(
-                children: [],
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      ImageIcon(
+                        AssetImage('assets/images/halal.png'),
+                        size: 40,
+                      ),
+                      Text(
+                        'Halal',
+                        style: TextStyle(fontFamily: 'Falling', fontSize: 20),
+                      )
+                    ],
+                  ),
+                ],
               ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Details',
+              style: TextStyle(fontFamily: "Falling", fontSize: 35),
             )
           ],
         ),
