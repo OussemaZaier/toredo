@@ -4,6 +4,8 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:toredo/api/api.dart';
 import 'package:toredo/pages/detailsPage.dart';
 import 'package:toredo/pages/homePage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,6 +15,16 @@ import 'package:page_transition/page_transition.dart';
 Future<void> main() async {
   await dotenv.load();
   HttpOverrides.global = MyHttpOverrides();
+  //uploading all products to gain time later
+  // APIService apiService = new APIService();
+
+  // final LocalStorage storage = new LocalStorage('todo_app');
+  // storage.deleteItem('products');
+  // apiService.getProducts();
+  // // storage.setItem(
+  // //   'products',
+  // //   apiService.getProducts(),
+  // // );
   runApp(const MyApp());
 }
 
@@ -51,7 +63,7 @@ class Splash extends StatelessWidget {
           ],
         ),
       ),
-      nextScreen: detailsPage(),
+      nextScreen: HomePage(),
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.leftToRight,
       duration: 4000,

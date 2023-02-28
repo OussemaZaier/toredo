@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:art_sweetalert/art_sweetalert.dart';
@@ -69,18 +70,34 @@ class _LoginPageState extends State<LoginPage> {
     api.createCustomer(cm).then(
       ((value) {
         Navigator.pop(context);
-        ArtSweetAlert.show(
-          context: context,
-          artDialogArgs: ArtDialogArgs(
-            title: "done working on your request",
-          ),
-        );
-        print(value.statusCode);
-        print(value.data);
+
+        print('here1');
+        if (value.response == null) {
+          print(value.statusCode);
+          print(value.data);
+          ArtSweetAlert.show(
+            context: context,
+            artDialogArgs: ArtDialogArgs(
+              title: "done working on your request",
+            ),
+          );
+        } else {
+          print(value.response.runtimeType);
+          Map<String, dynamic> jsonMap = json.decode(value.response.toString());
+          ArtSweetAlert.show(
+            context: context,
+            artDialogArgs: ArtDialogArgs(
+              title: "done working on your request",
+              text: jsonMap['data'],
+            ),
+          );
+        }
       }),
     ).onError(
       ((error, stackTrace) {
-        Navigator.pop(context);
+        print('here2');
+        print(error);
+
         ArtSweetAlert.show(
           context: context,
           artDialogArgs: ArtDialogArgs(
