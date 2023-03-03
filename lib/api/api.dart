@@ -72,10 +72,12 @@ class APIService {
           },
         ),
       );
-      print(res.runtimeType);
-      return json.decode(res.toString());
+      // return json.decode(res.toString());
+      return res.data;
     } catch (e) {
-      print(e);
+      if (e is DioError) {
+        return e.response;
+      }
       return e;
     }
   }

@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:toredo/pages/loginPage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:toredo/pages/navigation.dart';
@@ -88,6 +91,14 @@ class HomePage extends StatelessWidget {
             ),
             InkWell(
               onTap: (() {
+                // final LocalStorage storage = new LocalStorage('todo_app');
+                // await storage.ready;
+                // final data = storage.getItem('products');
+                // print('----------');
+                // print(data.runtimeType);
+                // print('----------');
+                // print(data);
+                // print(json.decode(data).runtimeType);
                 Navigator.push(
                   context,
                   PageRouteBuilder(

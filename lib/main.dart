@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
@@ -16,15 +17,19 @@ Future<void> main() async {
   await dotenv.load();
   HttpOverrides.global = MyHttpOverrides();
   //uploading all products to gain time later
-  // APIService apiService = new APIService();
+  APIService apiService = new APIService();
 
-  // final LocalStorage storage = new LocalStorage('todo_app');
-  // storage.deleteItem('products');
-  // apiService.getProducts();
-  // // storage.setItem(
-  // //   'products',
-  // //   apiService.getProducts(),
-  // // );
+  final LocalStorage storage = new LocalStorage('todo_app');
+  storage.deleteItem('products');
+  apiService.getProducts().then((value) async {
+    final parsed = json.encode(value);
+    await storage.ready;
+    storage.setItem(
+      'products',
+      parsed,
+    );
+  });
+
   runApp(const MyApp());
 }
 
