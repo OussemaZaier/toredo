@@ -25,26 +25,19 @@ class APIService {
           },
         ),
       );
-      // print('------here1----------');
-      // print(authToken);
-      // print('----------------');
-      // print(res.statusCode);
-      // print('----------------');
-      // print(res.data);
-      // print('----------------');
       return res;
-    } on DioError catch (e) {
-      // print('---------error-------');
-      // print(e.response);
-      // print('----------------');
+    } catch (e) {
+      if (e is DioError) {
+        return e.response;
+      }
       return e;
     }
   }
 
-  void loginCustomer(String username, String password) async {
+  Future loginCustomer(String username, String password) async {
     LoginModel model;
     try {
-      var response = await Dio().post(
+      var res = await Dio().post(
         dotenv.env['tokenURL'].toString(),
         data: {
           'username': username,
@@ -54,16 +47,13 @@ class APIService {
           headers: {HttpHeaders.contentTypeHeader: 'application/json'},
         ),
       );
-      if (response.statusCode == 200) {
-        //model = LoginModel.fromJSON(response.data);
+      return res;
+    } catch (e) {
+      if (e is DioError) {
+        return e.response;
       }
-      print('success');
-      print(response.data);
-    } on DioError catch (e) {
-      print('error');
-      print(e.message);
+      return e;
     }
-    //return model;
   }
 
   Future getProducts() async {

@@ -26,27 +26,68 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // static late APIService apiService;
-  // static late CustomerModel customer;
-
   _tapFunLogin() {
-    print('tapped login');
     APIService api = APIService();
-    api.loginCustomer(
-      userController.text,
-      passwordController.text,
-    );
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Navigation(),
+    //progress indicator
+    ArtSweetAlert.show(
+      context: context,
+      artDialogArgs: ArtDialogArgs(
+        title: "working on your request",
+        customColumns: [
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: CircularProgressIndicator(),
+          ),
+        ],
       ),
     );
+    api
+        .loginCustomer(
+      userController.text,
+      passwordController.text,
+    )
+        .then((value) {
+      //popping the waiting dialog
+      Navigator.pop(context);
+      //parsing result to json
+      final Map parsed = json.decode(value.toString());
+      //if there's data in result it's an error
+      if (parsed['data'] != null) {
+        ArtSweetAlert.show(
+          context: context,
+          artDialogArgs: ArtDialogArgs(
+            title: "done working on your request",
+            text: parsed['message'].toString(),
+          ),
+        );
+      } else {
+        if (value.statusCode == 200) {
+          ArtSweetAlert.show(
+            context: context,
+            artDialogArgs: ArtDialogArgs(
+              title: "done working on your request",
+              text: parsed['token'].toString(),
+            ),
+          );
+        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Navigation(),
+          ),
+        );
+      }
+    }).onError((error, stackTrace) {
+      ArtSweetAlert.show(
+        context: context,
+        artDialogArgs: ArtDialogArgs(
+          title: "error while working on your request",
+        ),
+      );
+    });
   }
 
   _tapFunSignUp() {
-    //wapiService.createCustomer(customer);
-    print('tapped signup');
     CustomerModel cm = new CustomerModel(
       email: emailController.text,
       password: passwordController.text,
@@ -69,35 +110,40 @@ class _LoginPageState extends State<LoginPage> {
     );
     api.createCustomer(cm).then(
       ((value) {
+        //popping the waiting dialog
         Navigator.pop(context);
-
-        print('here1');
-        if (value.response == null) {
-          print(value.statusCode);
-          print(value.data);
+        //parsing result to json
+        final Map parsed = json.decode(value.toString());
+        //if there's data in result it's an error
+        if (parsed['data'] != null) {
           ArtSweetAlert.show(
             context: context,
             artDialogArgs: ArtDialogArgs(
               title: "done working on your request",
+              text: parsed['message'].toString(),
             ),
           );
         } else {
-          print(value.response.runtimeType);
-          Map<String, dynamic> jsonMap = json.decode(value.response.toString());
-          ArtSweetAlert.show(
-            context: context,
-            artDialogArgs: ArtDialogArgs(
-              title: "done working on your request",
-              text: jsonMap['data'],
+          if (value.statusCode == 201) {
+            ArtSweetAlert.show(
+              context: context,
+              artDialogArgs: ArtDialogArgs(
+                title: "done working on your request",
+                text: parsed['id'].toString() + 'user created',
+              ),
+            );
+          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Navigation(),
             ),
           );
         }
       }),
     ).onError(
       ((error, stackTrace) {
-        print('here2');
         print(error);
-
         ArtSweetAlert.show(
           context: context,
           artDialogArgs: ArtDialogArgs(
@@ -106,13 +152,6 @@ class _LoginPageState extends State<LoginPage> {
         );
       }),
     );
-
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => Navigation(),
-    //   ),
-    // );
   }
 
   bool visible = false;
