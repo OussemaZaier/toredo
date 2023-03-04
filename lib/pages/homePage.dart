@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
               onTap: (() {
                 // final LocalStorage storage = new LocalStorage('todo_app');
                 // await storage.ready;
-                // final data = storage.getItem('products');
+                // final data = storage.getItem('token');
                 // print('----------');
                 // print(data.runtimeType);
                 // print('----------');
