@@ -57,6 +57,26 @@ class APIService {
     }
   }
 
+  Future validateToken(String token) async {
+    try {
+      var res = await Dio().post(
+        dotenv.env['tokenValidateURL'].toString(),
+        options: new Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+      return res;
+    } catch (e) {
+      if (e is DioError) {
+        return e.response;
+      }
+      return e;
+    }
+  }
+
   Future getProducts() async {
     String KEY = dotenv.env['KEY'].toString();
     String SECRET = dotenv.env['SECRET'].toString();

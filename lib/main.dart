@@ -7,11 +7,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:toredo/api/api.dart';
+import 'package:toredo/api/singleton.dart';
 import 'package:toredo/pages/detailsPage.dart';
 import 'package:toredo/pages/homePage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:toredo/pages/navigation.dart';
 
 Future<void> main() async {
   await dotenv.load();
@@ -19,8 +21,9 @@ Future<void> main() async {
   //uploading all products to gain time later
   APIService apiService = new APIService();
 
-  final LocalStorage storage = new LocalStorage('todo_app');
-  storage.deleteItem('products');
+  final LocalStorage storage = Singleton.storage;
+  await storage.ready;
+  //storage.deleteItem('products');
   apiService.getProducts().then((value) async {
     final parsed = json.encode(value);
     await storage.ready;
@@ -29,8 +32,21 @@ Future<void> main() async {
       parsed,
     );
   });
-  print(storage.getItem("products"));
-  runApp(const MyApp());
+
+  bool verified = false;
+  final token = await storage.getItem('token');
+  if (token != null) {
+    await apiService.validateToken(token).then((value) {
+      final Map parsed = json.decode(value.toString());
+      if (parsed['data']['status'] == 200) {
+        verified = true;
+      }
+    });
+  }
+
+  runApp(MyApp(
+    verified: verified,
+  ));
 }
 
 class MyHttpOverrides extends HttpOverrides {
@@ -43,7 +59,12 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 class Splash extends StatelessWidget {
-  const Splash({Key? key}) : super(key: key);
+  bool verified;
+
+  Splash({
+    Key? key,
+    required this.verified,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +89,8 @@ class Splash extends StatelessWidget {
           ],
         ),
       ),
-      nextScreen: HomePage(),
+      nextScreen: verified ? Navigation() : HomePage(),
+      //nextScreen: HomePage(),
       // detailsPage(),
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.leftToRight,
@@ -82,7 +104,9 @@ class Splash extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  bool verified;
+
+  MyApp({Key? key, required this.verified}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +123,9 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       // locale: Locale('en', ''),
-      home: Splash(),
+      home: Splash(
+        verified: verified,
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

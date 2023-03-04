@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:toredo/api/api.dart';
+import 'package:toredo/api/singleton.dart';
 import 'package:toredo/models/customer.dart';
 import 'package:toredo/pages/navigation.dart';
 import 'package:toredo/pages/shop.dart';
@@ -46,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
       userController.text,
       passwordController.text,
     )
-        .then((value) {
+        .then((value) async {
       //popping the waiting dialog
       Navigator.pop(context);
       //parsing result to json
@@ -62,11 +64,18 @@ class _LoginPageState extends State<LoginPage> {
         );
       } else {
         if (value.statusCode == 200) {
+          //storing the token into localStorage
+          final LocalStorage storage = Singleton.storage;
+          //storage.deleteItem('token');
+          await storage.ready;
+          storage.setItem(
+            'token',
+            parsed['token'].toString(),
+          );
           ArtSweetAlert.show(
             context: context,
             artDialogArgs: ArtDialogArgs(
               title: "done working on your request",
-              text: parsed['token'].toString(),
             ),
           );
         }
@@ -125,6 +134,37 @@ class _LoginPageState extends State<LoginPage> {
           );
         } else {
           if (value.statusCode == 201) {
+            ////////////////////
+            //_tapFunLogin();
+
+            ///api
+            api
+                .loginCustomer(
+              cm.username,
+              cm.password,
+            )
+                .then((value) async {
+              //popping the waiting dialog
+              //Navigator.pop(context);
+              //parsing result to json
+              final Map parsed = json.decode(value.toString());
+              //if there's data in result it's an error
+              if (parsed['data'] == null) {
+                if (value.statusCode == 200) {
+                  //storing the token into localStorage
+                  final LocalStorage storage = Singleton.storage;
+                  await storage.ready;
+                  //storage.deleteItem('token');
+                  final JSON = json.encode(parsed['token']);
+                  await storage.setItem(
+                    'token',
+                    JSON,
+                  );
+                  print(JSON);
+                }
+              }
+            });
+            //////////////////
             ArtSweetAlert.show(
               context: context,
               artDialogArgs: ArtDialogArgs(
@@ -132,13 +172,13 @@ class _LoginPageState extends State<LoginPage> {
                 text: parsed['id'].toString() + 'user created',
               ),
             );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Navigation(),
+              ),
+            );
           }
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Navigation(),
-            ),
-          );
         }
       }),
     ).onError(

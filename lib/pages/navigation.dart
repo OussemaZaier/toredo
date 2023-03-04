@@ -35,9 +35,11 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF101A30),
+      backgroundColor: Colors.white,
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Color(0xFF101A30),
+        backgroundColor: Colors.white,
+        color: Color(0xFF101A30),
+        buttonBackgroundColor: Colors.white,
         animationDuration: Duration(
           milliseconds: 500,
         ),
@@ -46,11 +48,31 @@ class _NavigationState extends State<Navigation> {
         },
         index: 2,
         items: <Widget>[
-          Icon(Icons.home, size: 30),
-          Icon(Icons.list, size: 30),
-          Icon(Icons.store, size: 30),
-          Icon(Icons.shopping_cart, size: 30),
-          Icon(Icons.account_circle_rounded, size: 30),
+          Icon(
+            Icons.home,
+            size: 30,
+            color: _currentIndex != 0 ? Colors.white : Color(0xFF101A30),
+          ),
+          Icon(
+            Icons.list,
+            size: 30,
+            color: _currentIndex != 1 ? Colors.white : Color(0xFF101A30),
+          ),
+          Icon(
+            Icons.store,
+            size: 30,
+            color: _currentIndex != 2 ? Colors.white : Color(0xFF101A30),
+          ),
+          Icon(
+            Icons.shopping_cart,
+            size: 30,
+            color: _currentIndex != 3 ? Colors.white : Color(0xFF101A30),
+          ),
+          Icon(
+            Icons.account_circle_rounded,
+            size: 30,
+            color: _currentIndex != 4 ? Colors.white : Color(0xFF101A30),
+          ),
         ],
       ),
       body: SafeArea(
