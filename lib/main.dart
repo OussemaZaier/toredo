@@ -32,6 +32,7 @@ Future<void> main() async {
       parsed,
     );
   });
+
   bool verified = false;
   final token = await storage.getItem('token');
   if (token != null) {
