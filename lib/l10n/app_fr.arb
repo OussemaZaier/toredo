@@ -18,5 +18,8 @@
     "grains": "Céréales",
     "shopby": "Recherche par catégorie",
     "emailError": "remplir ce schamps",
-    "pwdError": "Au plus de 6 characters"
+    "pwdError": "Au plus de 6 characters",
+    "details": "Plus d'information",
+    "price": "Prix",
+    "add": "Ajouter au panier"
 }

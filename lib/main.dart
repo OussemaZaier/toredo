@@ -29,7 +29,7 @@ Future<void> main() async {
       parsed,
     );
   });
-
+  print(storage.getItem("products"));
   runApp(const MyApp());
 }
 
