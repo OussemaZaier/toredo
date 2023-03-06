@@ -29,7 +29,7 @@ class _ShopPageState extends State<ShopPage> {
           in (jsonDecode(Singleton.storage.getItem("products")) as List)) {
         products.add(Product.fromJson(element));
       }
-      print(products[0].images[0].src);
+      //print(products[0].images[0].src);
     }
     return Scaffold(
       backgroundColor: Colors.white,

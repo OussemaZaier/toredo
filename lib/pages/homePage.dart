@@ -91,14 +91,6 @@ class HomePage extends StatelessWidget {
             ),
             InkWell(
               onTap: (() async {
-                final LocalStorage storage = new LocalStorage('todo_app');
-                await storage.ready;
-                final data = storage.getItem('token');
-                print('----------');
-                print(data.runtimeType);
-                print('----------');
-                print(data);
-                // print(json.decode(data).runtimeType);
                 Navigator.push(
                   context,
                   PageRouteBuilder(

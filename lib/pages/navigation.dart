@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:toredo/pages/settings.dart';
 
 import 'package:toredo/pages/shop.dart';
 
@@ -47,7 +48,7 @@ class _NavigationState extends State<Navigation> {
         onTap: (index) {
           _pageController.jumpToPage(index);
         },
-        index: 2,
+        index: _currentIndex,
         items: <Widget>[
           Icon(
             Icons.home,
@@ -92,13 +93,14 @@ class _NavigationState extends State<Navigation> {
               color: Colors.red,
             ),
             //Main
-            ShopPage(),
+            //ShopPage(),
+            Container(
+              color: Colors.orange,
+            ),
             Container(
               color: Colors.blue,
             ),
-            Container(
-              color: Colors.yellow,
-            ),
+            Settings(),
           ],
         ),
       ),

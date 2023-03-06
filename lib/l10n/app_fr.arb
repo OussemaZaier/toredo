@@ -21,5 +21,12 @@
     "pwdError": "Au plus de 6 characters",
     "details": "Plus d'information",
     "price": "Prix",
-    "add": "Ajouter au panier"
+    "add": "Ajouter au panier",
+     "account":"Compte",
+    "notification":"Notifications",
+    "privacy":"sécurité",
+    "support":"Aide et soutien",
+    "about":"À propos",
+    "logout":"Déconnecter",
+    "settings":"RÉGLAGES"
 }

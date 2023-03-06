@@ -75,5 +75,12 @@
   "pwdError": "6 characters or more",
   "details": "Details",
   "price": "Price",
-  "add": "Add to Cart"
+  "add": "Add to Cart",
+  "settings":"SETTINGS",
+  "account":"Account",
+  "notification":"Notifications",
+  "privacy":"Privacy & Security",
+  "support":"Help and Support",
+  "about":"About",
+  "logout":"LogOut"
 }
