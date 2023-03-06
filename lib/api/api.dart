@@ -11,6 +11,7 @@ class APIService {
     String KEY = dotenv.env['KEY'].toString();
     String SECRET = dotenv.env['SECRET'].toString();
     String URL = dotenv.env['URL'].toString();
+    print(URL);
     String fullURL = dotenv.env['customerURL'].toString();
     var authToken = base64.encode(utf8.encode('$KEY:$SECRET'));
     try {
