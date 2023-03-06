@@ -17,7 +17,8 @@ class Category extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Color.fromARGB(52, 105, 240, 175),
+                color: Colors.grey[200],
+                // Color.fromARGB(52, 105, 240, 175),
                 borderRadius: BorderRadius.circular(15),
                 border: Border.all(
                   color: Colors.black12,

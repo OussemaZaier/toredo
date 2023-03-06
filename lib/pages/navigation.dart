@@ -2,9 +2,10 @@ import 'dart:ffi';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:toredo/pages/shop.dart';
+
+import '../utils/constants.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class _NavigationState extends State<Navigation> {
       backgroundColor: Colors.white,
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.white,
-        color: Color(0xFF101A30),
+        color: navigationColor,
         buttonBackgroundColor: Colors.white,
         animationDuration: Duration(
           milliseconds: 500,
@@ -51,27 +52,27 @@ class _NavigationState extends State<Navigation> {
           Icon(
             Icons.home,
             size: 30,
-            color: _currentIndex != 0 ? Colors.white : Color(0xFF101A30),
+            color: _currentIndex != 0 ? Colors.white : navigationColor,
           ),
           Icon(
             Icons.list,
             size: 30,
-            color: _currentIndex != 1 ? Colors.white : Color(0xFF101A30),
+            color: _currentIndex != 1 ? Colors.white : navigationColor,
           ),
           Icon(
             Icons.store,
             size: 30,
-            color: _currentIndex != 2 ? Colors.white : Color(0xFF101A30),
+            color: _currentIndex != 2 ? Colors.white : navigationColor,
           ),
           Icon(
             Icons.shopping_cart,
             size: 30,
-            color: _currentIndex != 3 ? Colors.white : Color(0xFF101A30),
+            color: _currentIndex != 3 ? Colors.white : navigationColor,
           ),
           Icon(
             Icons.account_circle_rounded,
             size: 30,
-            color: _currentIndex != 4 ? Colors.white : Color(0xFF101A30),
+            color: _currentIndex != 4 ? Colors.white : navigationColor,
           ),
         ],
       ),
