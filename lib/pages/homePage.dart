@@ -90,14 +90,14 @@ class HomePage extends StatelessWidget {
               height: MediaQuery.of(context).size.height / 7,
             ),
             InkWell(
-              onTap: (() {
-                // final LocalStorage storage = new LocalStorage('todo_app');
-                // await storage.ready;
-                // final data = storage.getItem('token');
-                // print('----------');
-                // print(data.runtimeType);
-                // print('----------');
-                // print(data);
+              onTap: (() async {
+                final LocalStorage storage = new LocalStorage('todo_app');
+                await storage.ready;
+                final data = storage.getItem('token');
+                print('----------');
+                print(data.runtimeType);
+                print('----------');
+                print(data);
                 // print(json.decode(data).runtimeType);
                 Navigator.push(
                   context,
