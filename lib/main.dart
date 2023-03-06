@@ -32,12 +32,13 @@ Future<void> main() async {
       parsed,
     );
   });
+
   bool verified = false;
   final token = await storage.getItem('token');
   if (token != null) {
     await apiService.validateToken(token).then((value) {
-      final Map parsed = json.decode(value.toString());
-      if (parsed['data']['status'] == 200) {
+      final parsed = json.decode(value.toString());
+      if (parsed?['data']['status'] == 200) {
         verified = true;
       }
     });

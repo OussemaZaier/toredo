@@ -43,6 +43,8 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   art_sweetalert: ^0.0.5
   localstorage: ^4.0.0+1
+
+  smooth_page_indicator: ^1.0.1
   # oauth1: ^2.0.0
   # woocommerce_api: ^0.1.0
   # monahawk_woocommerce: ^1.0.0
