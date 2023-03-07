@@ -30,5 +30,6 @@
     "logout":"Déconnecter",
     "settings":"RÉGLAGES",
     "noData":"pas d'informations à afficher",
-    "saleDate":"promotion jusqu'au"
+    "saleDate":"promotion jusqu'au",
+    "language":"Langue"
 }

@@ -97,11 +97,11 @@ class _NavigationState extends State<Navigation> {
             ),
             //Main
             ShopPage(),
+            // Container(
+            //   color: Colors.yellow,
+            // ),
             Container(
               color: Colors.orange,
-            ),
-            Container(
-              color: Colors.blue,
             ),
             Settings(),
           ],

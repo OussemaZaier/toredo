@@ -84,5 +84,6 @@
   "about":"About",
   "logout":"LogOut",
   "noData":"no products to view",
-  "saleDate":"sale available till"
+  "saleDate":"sale available till",
+  "language":"Language"
 }
