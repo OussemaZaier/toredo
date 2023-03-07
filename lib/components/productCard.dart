@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:toredo/models/CartItem.dart';
 
 import '../models/product.dart';
 import '../pages/detailsPage.dart';
@@ -8,7 +10,9 @@ import '../utils/constants.dart';
 
 class ProductCard extends StatefulWidget {
   Product product;
-  ProductCard({required this.product, Key? key}) : super(key: key);
+  List<CartItem> cart;
+  ProductCard({required this.product, required this.cart, Key? key})
+      : super(key: key);
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -28,8 +32,10 @@ class _ProductCardState extends State<ProductCard> {
   @override
   void initState() {
     // TODO: implement initState
-    _updatePaletteGenerator(NetworkImage("https://192.168.1.14/" +
-        widget.product.images[0].src.toString().substring(18)));
+    if (widget.product.images != null) {
+      _updatePaletteGenerator(NetworkImage(dotenv.env["URLFPART"]! +
+          widget.product.images[0].src.toString().substring(18)));
+    }
   }
 
   @override
@@ -43,7 +49,7 @@ class _ProductCardState extends State<ProductCard> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         color: paletteGenerator == null
             ? Colors.white
-            : paletteGenerator!.lightVibrantColor!.color.withAlpha(200),
+            : paletteGenerator?.lightVibrantColor?.color.withAlpha(200),
         child: Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,12 +58,12 @@ class _ProductCardState extends State<ProductCard> {
               Expanded(
                 child: Hero(
                   tag: widget.product.id,
-                  child: widget.product.images.isEmpty
+                  child: widget.product.images == null
                       ? Image.asset(
                           "assets/images/No_image.png",
                         )
                       : Image.network(
-                          "https://192.168.1.14/" +
+                          dotenv.env["URLFPART"]! +
                               widget.product.images[0].src
                                   .toString()
                                   .substring(18),
@@ -125,7 +131,18 @@ class _ProductCardState extends State<ProductCard> {
                               )),
                           child: InkWell(
                               onTap: () {
-                                print("tapped!!!");
+                                int i = 0;
+                                while (i < widget.cart.length &&
+                                    widget.cart[i].product.id !=
+                                        widget.product.id) {
+                                  i++;
+                                }
+                                if (i >= widget.cart.length) {
+                                  widget.cart
+                                      .add(CartItem(product: widget.product));
+                                } else {
+                                  widget.cart[i].qte++;
+                                }
                               },
                               child: Icon(
                                 Icons.add,

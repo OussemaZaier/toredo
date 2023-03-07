@@ -41,7 +41,7 @@ class Product {
       json['categories']
           .forEach((cat) => {categories.add(CategoryModel.fromJson(cat))});
     }
-    if (json['attributes'] != null) {
+    if (json['attributes'].isNotEmpty) {
       json['attributes'][0]['options'].forEach((opt) => {type.add(opt)});
     }
     Product product = Product(id, name, description, price, regularPrice,
