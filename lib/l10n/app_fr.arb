@@ -28,5 +28,7 @@
     "support":"Aide et soutien",
     "about":"À propos",
     "logout":"Déconnecter",
-    "settings":"RÉGLAGES"
+    "settings":"RÉGLAGES",
+    "noData":"pas d'informations à afficher",
+    "saleDate":"promotion jusqu'au"
 }

@@ -3,15 +3,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 import '../components/attribute.dart';
+import '../models/product.dart';
+import '../utils/constants.dart';
 
-class detailsPage extends StatelessWidget {
-  detailsPage({Key? key}) : super(key: key);
-
+class DetailsPage extends StatelessWidget {
+  final Product product;
+  DetailsPage(this.product);
   @override
   Widget build(BuildContext context) {
-    var img = ['halal food', 'bio food', 'gluten free'];
+    var img = product.type;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -23,21 +26,43 @@ class detailsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: Image.network(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0n69IGWG0EJo6Q-y5_hlxrQkcrslN_R_2Gaf6Tbl1J7tq6xw57n7CX5aL0VvE9EUuFtU&usqp=CAU",
+                    child: Hero(
+                      tag: product.id,
+                      child: product.images.isEmpty
+                          ? Image.asset("assets/images/No_image.png")
+                          : Image.network(
+                              "https://192.168.1.14/" +
+                                  product.images[0].src
+                                      .toString()
+                                      .substring(18),
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height * 0.45,
+                            ),
                     ),
                   ),
-                  const Text(
-                    "Fresh Meat",
+                  Text(
+                    product.name,
                     style: TextStyle(
                       fontFamily: "Falling",
                       fontSize: 35,
                       color: Color(0xff123153),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  product.saleDateTo.isNotEmpty
+                      ? Text(
+                          AppLocalizations.of(context)!.saleDate +
+                              " " +
+                              DateFormat("dd-MM-yyyy")
+                                  .format(DateTime.parse(product.saleDateTo)),
+                          style: TextStyle(
+                            fontFamily: "Falling",
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 248, 125, 111),
+                          ),
+                        )
+                      : SizedBox(
+                          height: 10,
+                        ),
                   Container(
                     height: 100,
                     decoration: BoxDecoration(
@@ -67,8 +92,8 @@ class detailsPage extends StatelessWidget {
                       color: Color(0xff123153),
                     ),
                   ),
-                  const Text(
-                    'some further inormationhhhhhhhs',
+                  Text(
+                    product.description,
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.black54,
@@ -96,12 +121,24 @@ class detailsPage extends StatelessWidget {
                       fontFamily: "Falling",
                     ),
                   ),
-                  Text("\$data",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontFamily: "Falling",
-                        color: Color(0xff123153),
-                      )),
+                  Row(
+                    children: [
+                      Text(
+                        product.price + "DT",
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                            color: darkBlueText),
+                      ),
+                      Visibility(
+                          visible: product.salePrice != "",
+                          child: Text(
+                            product.regularPrice + "DT",
+                            style: TextStyle(
+                                decoration: TextDecoration.lineThrough),
+                          ))
+                    ],
+                  ),
                 ],
               ),
               TextButton(

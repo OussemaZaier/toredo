@@ -2,9 +2,9 @@
     package="com.example.toredo">
     <uses-permission android:name="android.permission.INTERNET"/> <!-- Add this -->
    <application
-        android:label="toredo"
+        android:label="Toredo"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/toredo">
         <activity
             android:name=".MainActivity"
             android:exported="true"
