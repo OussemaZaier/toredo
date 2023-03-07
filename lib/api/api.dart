@@ -102,4 +102,33 @@ class APIService {
       return e;
     }
   }
+
+  Future getCategories() async {
+    String KEY = dotenv.env['KEY'].toString();
+    String SECRET = dotenv.env['SECRET'].toString();
+    String URL = dotenv.env['URL'].toString();
+    String fullURL = URL +
+        dotenv.env['productURL'].toString() +
+        "/" +
+        dotenv.env['categoriesURL'].toString();
+    var authToken = base64.encode(utf8.encode('$KEY:$SECRET'));
+    try {
+      var res = await Dio().get(
+        fullURL,
+        options: Options(
+          headers: {
+            HttpHeaders.authorizationHeader: 'Basic $authToken',
+            HttpHeaders.contentTypeHeader: 'application/json',
+          },
+        ),
+      );
+      print(json.decode(res.toString()));
+      return res.data;
+    } catch (e) {
+      if (e is DioError) {
+        return e.response;
+      }
+      return e;
+    }
+  }
 }

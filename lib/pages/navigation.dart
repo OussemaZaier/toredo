@@ -100,9 +100,6 @@ class _NavigationState extends State<Navigation> {
             Container(
               color: Colors.orange,
             ),
-            Container(
-              color: Colors.blue,
-            ),
             Settings(),
           ],
         ),

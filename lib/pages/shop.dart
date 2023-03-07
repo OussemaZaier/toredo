@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:toredo/api/api.dart';
 
 import 'package:toredo/api/singleton.dart';
+import 'package:toredo/models/CartItem.dart';
 import 'package:toredo/pages/detailsPage.dart';
 import 'package:toredo/pages/navigation.dart';
 import '../components/productCard.dart';
@@ -23,9 +25,10 @@ class ShopPage extends StatefulWidget {
 class _ShopPageState extends State<ShopPage> {
   @override
   Widget build(BuildContext context) {
+    // APIService().getCategories();
     var size = MediaQuery.of(context).size;
     timeDilation = 5.0; // 1.0 means normal animation speed.
-
+    List<CartItem> cart = [];
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
@@ -35,7 +38,6 @@ class _ShopPageState extends State<ShopPage> {
           in (jsonDecode(Singleton.storage.getItem("products")) as List)) {
         products.add(Product.fromJson(element));
       }
-      //print(products[0].images[0].src);
     }
     return Scaffold(
       backgroundColor: Colors.white,
@@ -45,23 +47,6 @@ class _ShopPageState extends State<ShopPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Container(
-              //   height: 50,
-              //   decoration: const BoxDecoration(
-              //     color: navigationColor,
-              //     borderRadius: BorderRadius.only(
-              //       bottomLeft: Radius.circular(
-              //         50,
-              //       ),
-              //       bottomRight: Radius.circular(
-              //         50,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 20,
-              // ),
               Text(
                 AppLocalizations.of(context)!.shopby,
                 style: TextStyle(
@@ -99,9 +84,17 @@ class _ShopPageState extends State<ShopPage> {
               ),
               Expanded(
                 child: products.isEmpty
-                    ? Text(
-                        AppLocalizations.of(context)!.noData,
-                        textAlign: TextAlign.center,
+                    ? Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.noData.toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Falling",
+                            color: darkBlueText,
+                            fontSize: 25,
+                          ),
+                        ),
                       )
                     : GridView.count(
                         childAspectRatio: (itemWidth / itemHeight) / 0.7,
@@ -110,7 +103,7 @@ class _ShopPageState extends State<ShopPage> {
                         shrinkWrap: true,
                         crossAxisCount: 2,
                         children: products.map((product) {
-                          return ProductCard(product: product);
+                          return ProductCard(product: product, cart: cart);
                         }).toList()),
               )
             ],
