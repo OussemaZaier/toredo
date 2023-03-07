@@ -39,11 +39,13 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: CurvedNavigationBar(
+        height: 60,
         backgroundColor: Colors.white,
-        color: navigationColor,
-        buttonBackgroundColor: Colors.white,
+        color: Colors.white,
+        buttonBackgroundColor: Color(0xff036666),
+        //  Colors.white,
         animationDuration: Duration(
-          milliseconds: 500,
+          milliseconds: 300,
         ),
         onTap: (index) {
           _pageController.jumpToPage(index);
@@ -53,27 +55,28 @@ class _NavigationState extends State<Navigation> {
           Icon(
             Icons.home,
             size: 30,
-            color: _currentIndex != 0 ? Colors.white : navigationColor,
+            color: _currentIndex != 0 ? navigationColor : Colors.white,
+            //  Colors.white : navigationColor,
           ),
           Icon(
             Icons.list,
             size: 30,
-            color: _currentIndex != 1 ? Colors.white : navigationColor,
+            color: _currentIndex != 1 ? navigationColor : Colors.white,
           ),
           Icon(
             Icons.store,
             size: 30,
-            color: _currentIndex != 2 ? Colors.white : navigationColor,
+            color: _currentIndex != 2 ? navigationColor : Colors.white,
           ),
           Icon(
             Icons.shopping_cart,
             size: 30,
-            color: _currentIndex != 3 ? Colors.white : navigationColor,
+            color: _currentIndex != 3 ? navigationColor : Colors.white,
           ),
           Icon(
             Icons.account_circle_rounded,
             size: 30,
-            color: _currentIndex != 4 ? Colors.white : navigationColor,
+            color: _currentIndex != 4 ? navigationColor : Colors.white,
           ),
         ],
       ),
@@ -93,7 +96,7 @@ class _NavigationState extends State<Navigation> {
               color: Colors.red,
             ),
             //Main
-            //ShopPage(),
+            ShopPage(),
             Container(
               color: Colors.orange,
             ),

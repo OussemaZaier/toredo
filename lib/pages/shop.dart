@@ -1,8 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 import 'package:toredo/api/singleton.dart';
+import 'package:toredo/pages/detailsPage.dart';
+import 'package:toredo/pages/navigation.dart';
+import '../components/productCard.dart';
 import '../utils/constants.dart';
 import 'package:toredo/components/category.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,6 +24,7 @@ class _ShopPageState extends State<ShopPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    timeDilation = 5.0; // 1.0 means normal animation speed.
 
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
@@ -62,7 +68,7 @@ class _ShopPageState extends State<ShopPage> {
                   fontFamily: 'Falling',
                   fontSize: 30,
                   fontWeight: FontWeight.w900,
-                  color: Color(0xFF101A30),
+                  color: darkBlueText,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -94,102 +100,17 @@ class _ShopPageState extends State<ShopPage> {
               Expanded(
                 child: products.isEmpty
                     ? Text(
-                        "No products to show",
+                        AppLocalizations.of(context)!.noData,
                         textAlign: TextAlign.center,
                       )
                     : GridView.count(
-                        childAspectRatio: (itemWidth / itemHeight),
+                        childAspectRatio: (itemWidth / itemHeight) / 0.7,
                         scrollDirection: Axis.vertical,
                         physics: ScrollPhysics(),
                         shrinkWrap: true,
                         crossAxisCount: 2,
                         children: products.map((product) {
-                          return Card(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                  child: Image.network(
-                                    "https://192.168.1.14/" +
-                                        product.images[0].src
-                                            .toString()
-                                            .substring(18),
-                                    width: double.infinity,
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(left: 4),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            FittedBox(
-                                              child: Text(
-                                                product.name,
-                                                maxLines: 2,
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: darkBlueText),
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  product.price + "DT",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: darkBlueText),
-                                                ),
-                                                Visibility(
-                                                    visible:
-                                                        product.salePrice != "",
-                                                    child: Text(
-                                                      product.regularPrice +
-                                                          "DT",
-                                                      style: TextStyle(
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .lineThrough),
-                                                    ))
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          height: 25,
-                                          width: 25,
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey[200],
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                              )),
-                                          child: InkWell(
-                                              onTap: () {
-                                                print("tapped!!!");
-                                              },
-                                              child: Icon(
-                                                Icons.add,
-                                                size: 25,
-                                              )),
-                                        )
-                                      ]),
-                                )
-                              ],
-                            ),
-                          );
+                          return ProductCard(product: product);
                         }).toList()),
               )
             ],

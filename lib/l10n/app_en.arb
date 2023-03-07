@@ -82,5 +82,7 @@
   "privacy":"Privacy & Security",
   "support":"Help and Support",
   "about":"About",
-  "logout":"LogOut"
+  "logout":"LogOut",
+  "noData":"no products to view",
+  "saleDate":"sale available till"
 }
