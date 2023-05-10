@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:toredo/components/cartProvider.dart';
 
 import '../components/attribute.dart';
 import '../models/product.dart';
@@ -15,6 +17,7 @@ class DetailsPage extends StatelessWidget {
   DetailsPage(this.product);
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
     var type = product.type;
     return SafeArea(
       child: Scaffold(
@@ -131,7 +134,7 @@ class DetailsPage extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontFamily: "Falling",
-                                  color: Colors.black45,
+                                  color: lightgrey,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -153,6 +156,7 @@ class DetailsPage extends StatelessWidget {
                                       child: Text(
                                         product.regularPrice + "DT",
                                         style: TextStyle(
+                                            color: lightgrey,
                                             decoration:
                                                 TextDecoration.lineThrough),
                                       ),
@@ -164,7 +168,17 @@ class DetailsPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextButton(
-                            onPressed: () => {},
+                            onPressed: () => {
+                                  cart.addItem(
+                                    product.id,
+                                    product.name,
+                                    product.price,
+                                    dotenv.env["URLFPART"]! +
+                                        product.images[0].src
+                                            .toString()
+                                            .substring(18),
+                                  )
+                                },
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(

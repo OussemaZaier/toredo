@@ -1,10 +1,14 @@
 import 'package:toredo/models/product.dart';
 
 class CartItem {
-  Product product;
-  int qte;
-  CartItem({required this.product, this.qte = 1});
-  setterQte(qte) {
-    this.qte = qte;
-  }
+  int id;
+  String name, img;
+  String price;
+  int quantity;
+  CartItem(
+      {required this.id,
+      required this.name,
+      this.quantity = 1,
+      required this.price,
+      required this.img});
 }

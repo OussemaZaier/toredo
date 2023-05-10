@@ -3,11 +3,12 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:toredo/components/category.dart';
 import 'package:toredo/models/customer.dart';
 import 'package:toredo/models/login.dart';
 
-class APIService {
-  Future createCustomer(CustomerModel customer) async {
+abstract class APIService {
+  static Future createCustomer(CustomerModel customer) async {
     String KEY = dotenv.env['KEY'].toString();
     String SECRET = dotenv.env['SECRET'].toString();
     String URL = dotenv.env['URL'].toString();
@@ -35,7 +36,7 @@ class APIService {
     }
   }
 
-  Future loginCustomer(String username, String password) async {
+  static Future loginCustomer(String username, String password) async {
     LoginModel model;
     try {
       var res = await Dio().post(
@@ -57,7 +58,7 @@ class APIService {
     }
   }
 
-  Future validateToken(String token) async {
+  static Future validateToken(String token) async {
     try {
       var res = await Dio().post(
         dotenv.env['tokenValidateURL'].toString(),
@@ -77,7 +78,7 @@ class APIService {
     }
   }
 
-  Future getProducts() async {
+  static Future getProducts() async {
     String KEY = dotenv.env['KEY'].toString();
     String SECRET = dotenv.env['SECRET'].toString();
     String URL = dotenv.env['URL'].toString();
@@ -103,7 +104,7 @@ class APIService {
     }
   }
 
-  Future getCategories() async {
+  static Future getCategories() async {
     String KEY = dotenv.env['KEY'].toString();
     String SECRET = dotenv.env['SECRET'].toString();
     String URL = dotenv.env['URL'].toString();

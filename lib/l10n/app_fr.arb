@@ -31,5 +31,6 @@
     "settings":"RÉGLAGES",
     "noData":"pas d'informations à afficher",
     "saleDate":"promotion jusqu'au",
-    "language":"Langue"
+    "language":"Langue",
+    "order":"ordres"
 }

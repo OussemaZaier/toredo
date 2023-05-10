@@ -12,11 +12,21 @@ class Product {
       stockStatus,
       saleDateFrom = "",
       saleDateTo = "";
+  List<String> tags = [];
   List<ImageModel> images = [];
   List<CategoryModel> categories = [];
   List<String> type = [];
-  Product(this.id, this.name, this.description, this.price, this.regularPrice,
-      this.salePrice, this.stockStatus, this.saleDateFrom, this.saleDateTo);
+  Product(
+      this.name,
+      this.description,
+      this.price,
+      this.regularPrice,
+      this.salePrice,
+      this.stockStatus,
+      this.saleDateFrom,
+      this.saleDateTo,
+      this.tags,
+      {required this.id});
   Product.fromJson(var json) {
     id = json['id'];
     name = json['name'];
@@ -44,8 +54,20 @@ class Product {
     if (json['attributes'].isNotEmpty) {
       json['attributes'][0]['options'].forEach((opt) => {type.add(opt)});
     }
-    Product product = Product(id, name, description, price, regularPrice,
-        salePrice, stockStatus, saleDateFrom, saleDateTo);
+    if (json['tags'].isNotEmpty) {
+      json['tags'].forEach((opt) => {tags.add(opt['slug'])});
+    }
+    Product product = Product(
+        id: id,
+        name,
+        description,
+        price,
+        regularPrice,
+        salePrice,
+        stockStatus,
+        saleDateFrom,
+        saleDateTo,
+        tags);
     product.images = images;
   }
 }

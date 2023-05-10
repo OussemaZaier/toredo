@@ -20,12 +20,11 @@ Future<void> main() async {
   await dotenv.load();
   HttpOverrides.global = MyHttpOverrides();
   //uploading all products to gain time later
-  APIService apiService = new APIService();
 
   final LocalStorage storage = Singleton.storage;
   await storage.ready;
   //storage.deleteItem('products');
-  apiService.getProducts().then((value) async {
+  APIService.getProducts().then((value) async {
     final parsed = json.encode(value);
     await storage.ready;
     storage.setItem(
@@ -37,7 +36,7 @@ Future<void> main() async {
   bool verified = false;
   final token = await storage.getItem('token');
   if (token != null) {
-    await apiService.validateToken(token).then((value) {
+    await APIService.validateToken(token).then((value) {
       final parsed = json.decode(value.toString());
       if (parsed?['data']['status'] == 200) {
         verified = true;

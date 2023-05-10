@@ -29,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
 
   _tapFunLogin() {
-    APIService api = APIService();
     //progress indicator
     ArtSweetAlert.show(
       context: context,
@@ -43,12 +42,10 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
-    api
-        .loginCustomer(
+    APIService.loginCustomer(
       userController.text,
       passwordController.text,
-    )
-        .then((value) async {
+    ).then((value) async {
       //popping the waiting dialog
       Navigator.pop(context);
       //parsing result to json
@@ -103,7 +100,6 @@ class _LoginPageState extends State<LoginPage> {
       username: userController.text,
     );
 
-    APIService api = APIService();
     //progress indicator
     ArtSweetAlert.show(
       context: context,
@@ -117,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
-    api.createCustomer(cm).then(
+    APIService.createCustomer(cm).then(
       ((value) {
         //popping the waiting dialog
         Navigator.pop(context);
@@ -138,12 +134,10 @@ class _LoginPageState extends State<LoginPage> {
             //_tapFunLogin();
 
             ///api
-            api
-                .loginCustomer(
+            APIService.loginCustomer(
               cm.username,
               cm.password,
-            )
-                .then((value) async {
+            ).then((value) async {
               //popping the waiting dialog
               //Navigator.pop(context);
               //parsing result to json
