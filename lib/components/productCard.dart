@@ -45,7 +45,9 @@ class _ProductCardState extends State<ProductCard> {
       builder: (context, cart, child) => InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => DetailsPage(widget.product)));
+              builder: (context) => DetailsPage(
+                    widget.product,
+                  )));
         },
         child: Card(
           elevation: 10,

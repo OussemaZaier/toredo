@@ -92,112 +92,114 @@ class _ShopPageState extends State<ShopPage> {
         )
         .toList();
     print(changeableProducts);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(right: 8.0, left: 8, top: 15),
-          child: ListView(children: [
-            CarouselImage(
-              imagesliders: productSliders,
-              img: topDealProducts,
-            ),
-            Text(
-              AppLocalizations.of(context)!.shopby,
-              style: TextStyle(
-                fontFamily: 'Falling',
-                fontSize: 30,
-                fontWeight: FontWeight.w900,
-                color: textColor,
-                overflow: TextOverflow.ellipsis,
+    return Consumer(
+      builder: (context, builder, provider) => Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8.0, left: 8, top: 15),
+            child: ListView(children: [
+              CarouselImage(
+                imagesliders: productSliders,
+                img: topDealProducts,
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Category(
-                    img: const AssetImage('assets/images/vegetable.png'),
-                    name: 'vegetables',
-                    fct: () => _filterBy('vegetables')),
-                Category(
-                    img: const AssetImage('assets/images/meat.png'),
-                    name: 'meat',
-                    fct: () => _filterBy('meat')),
-                Category(
-                    img: const AssetImage('assets/images/fruit.png'),
-                    name: 'fruits',
-                    fct: () => _filterBy('fruits')),
-                Category(
-                    img: const AssetImage('assets/images/milk.png'),
-                    name: 'Dairy',
-                    fct: () => _filterBy('Dairy')),
-                Category(
-                    img: const AssetImage('assets/images/fish.png'),
-                    name: 'Fish',
-                    fct: () => _filterBy('Fish')),
-                Category(
-                    img: const AssetImage('assets/images/wheat-sack.png'),
-                    name: 'cereals',
-                    fct: () => _filterBy('cereals')),
-              ],
-            ),
-            Visibility(
-              visible: _visible,
-              child: Container(
-                margin: EdgeInsets.only(left: 30),
-                child: Row(children: [
-                  Text(
-                    category.toUpperCase(),
-                    style: TextStyle(
-                      fontFamily: 'Falling',
-                      fontSize: 20,
-                      color: textColor,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        changeableProducts = products;
-                        category = "";
-                        _visible = false;
-                      });
-                    },
-                    child: const Icon(
-                      Icons.close,
-                      color: Colors.black26,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  )
-                ]),
+              Text(
+                AppLocalizations.of(context)!.shopby,
+                style: TextStyle(
+                  fontFamily: 'Falling',
+                  fontSize: 30,
+                  fontWeight: FontWeight.w900,
+                  color: textColor,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            Expanded(
-                child: changeableProducts.isEmpty
-                    ? Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.noData.toUpperCase(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontFamily: "Falling",
-                            color: textColor,
-                            fontSize: 25,
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Category(
+                      img: const AssetImage('assets/images/vegetable.png'),
+                      name: 'vegetables',
+                      fct: () => _filterBy('vegetables')),
+                  Category(
+                      img: const AssetImage('assets/images/meat.png'),
+                      name: 'meat',
+                      fct: () => _filterBy('meat')),
+                  Category(
+                      img: const AssetImage('assets/images/fruit.png'),
+                      name: 'fruits',
+                      fct: () => _filterBy('fruits')),
+                  Category(
+                      img: const AssetImage('assets/images/milk.png'),
+                      name: 'Dairy',
+                      fct: () => _filterBy('Dairy')),
+                  Category(
+                      img: const AssetImage('assets/images/fish.png'),
+                      name: 'Fish',
+                      fct: () => _filterBy('Fish')),
+                  Category(
+                      img: const AssetImage('assets/images/wheat-sack.png'),
+                      name: 'cereals',
+                      fct: () => _filterBy('cereals')),
+                ],
+              ),
+              Visibility(
+                visible: _visible,
+                child: Container(
+                  margin: EdgeInsets.only(left: 30),
+                  child: Row(children: [
+                    Text(
+                      category.toUpperCase(),
+                      style: TextStyle(
+                        fontFamily: 'Falling',
+                        fontSize: 20,
+                        color: textColor,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          changeableProducts = products;
+                          category = "";
+                          _visible = false;
+                        });
+                      },
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.black26,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    )
+                  ]),
+                ),
+              ),
+              Expanded(
+                  child: changeableProducts.isEmpty
+                      ? Center(
+                          child: Text(
+                            AppLocalizations.of(context)!.noData.toUpperCase(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "Falling",
+                              color: textColor,
+                              fontSize: 25,
+                            ),
                           ),
-                        ),
-                      )
-                    : StreamBuilder(
-                        stream: _controller.stream,
-                        builder: (__, _) => ProductsGrid(
-                              itemWidth: itemWidth,
-                              itemHeight: itemHeight,
-                              products: changeableProducts,
-                            ))),
-          ]),
+                        )
+                      : StreamBuilder(
+                          stream: _controller.stream,
+                          builder: (__, _) => ProductsGrid(
+                                itemWidth: itemWidth,
+                                itemHeight: itemHeight,
+                                products: changeableProducts,
+                              ))),
+            ]),
+          ),
         ),
       ),
     );
@@ -233,7 +235,7 @@ class topDeal extends StatelessWidget {
           left: 25,
           right: 25,
           child: Text(
-            '2DT',
+            '${item.price}DT',
             style: TextStyle(
                 color: darkBlueText, fontSize: 30, fontWeight: FontWeight.bold),
           ),

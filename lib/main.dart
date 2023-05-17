@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:provider/provider.dart';
 import 'package:toredo/api/api.dart';
 import 'package:toredo/api/singleton.dart';
 import 'package:toredo/pages/detailsPage.dart';
@@ -15,6 +16,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:toredo/pages/navigation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'components/cartProvider.dart';
+import 'components/orderProvider.dart';
 
 Future<void> main() async {
   await dotenv.load();
@@ -90,8 +94,6 @@ class Splash extends StatelessWidget {
         ),
       ),
       nextScreen: verified ? Navigation() : HomePage(),
-      //nextScreen: HomePage(),
-      // detailsPage(),
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.leftToRight,
       duration: 4000,
@@ -128,23 +130,28 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(Color(0xFF101A30));
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        appBarTheme: AppBarTheme(
-          color: Colors.white, //<-- SEE HERE
-        ),
-      ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      // locale: Locale('en', ''),
-      home: Splash(
-        verified: widget.verified,
-      ),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => CartProvider()),
+          ChangeNotifierProvider(create: (context) => OrderProvider())
+        ],
+        builder: (context, cart) => MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+                appBarTheme: AppBarTheme(
+                  color: Colors.white, //<-- SEE HERE
+                ),
+              ),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              // locale: Locale('en', ''),
+              home: Splash(
+                verified: widget.verified,
+              ),
 
-      locale: _locale,
-      debugShowCheckedModeBanner: false,
-    );
+              locale: _locale,
+              debugShowCheckedModeBanner: false,
+            ));
   }
 }
